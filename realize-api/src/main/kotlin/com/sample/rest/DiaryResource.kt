@@ -2,9 +2,8 @@ package com.sample.rest
 
 import com.sample.domain.Diary
 import com.sample.domain.DiaryId
-import com.sample.domain.DiaryReleaseDate
 import com.sample.extension.toFormattedString
-import com.sample.usecase.DiaryUsecase
+import com.sample.usecase.GetDiaryUsecase
 import jakarta.inject.Inject
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.Path
@@ -12,7 +11,7 @@ import jakarta.ws.rs.core.Response
 import org.jboss.resteasy.reactive.RestPath
 
 @Path("/v1/diaries")
-class DiaryResource @Inject constructor(private val usecase: DiaryUsecase) {
+class DiaryResource(private val usecase: GetDiaryUsecase) {
     @GET
     @Path("{diaryId}")
     fun getDiary(@RestPath diaryId: String): Response {
