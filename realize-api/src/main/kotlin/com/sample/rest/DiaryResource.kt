@@ -4,11 +4,10 @@ import com.sample.domain.Diary
 import com.sample.domain.DiaryId
 import com.sample.extension.toFormattedString
 import com.sample.usecase.GetDiaryUsecase
-import jakarta.inject.Inject
-import jakarta.ws.rs.GET
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.core.Response
 import org.jboss.resteasy.reactive.RestPath
+import javax.ws.rs.GET
+import javax.ws.rs.Path
+import javax.ws.rs.core.Response
 
 @Path("/v1/diaries")
 class DiaryResource(private val usecase: GetDiaryUsecase) {

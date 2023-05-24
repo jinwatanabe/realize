@@ -5,11 +5,11 @@ import com.sample.domain.DiaryId
 import com.sample.usecase.port.DiaryPort
 import io.mockk.every
 import io.mockk.mockk
+import io.quarkiverse.test.junit.mockk.InjectMock
 import io.quarkus.test.junit.QuarkusTest
-import io.quarkus.test.junit.mockito.InjectMock
-import jakarta.inject.Inject
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import javax.inject.Inject
 
 @QuarkusTest
 class GetDiaryUsecaseTest {
