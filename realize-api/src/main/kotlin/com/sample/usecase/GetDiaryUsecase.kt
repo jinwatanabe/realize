@@ -8,6 +8,6 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class GetDiaryUsecase(private val diaryPort: DiaryPort) {
     fun execute(diaryId: DiaryId): Diary {
-        return diaryPort.find(diaryId)
+        return diaryPort.findById(diaryId)
     }
 }

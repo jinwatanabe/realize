@@ -25,7 +25,7 @@ class GetDiaryUsecaseTest {
         val diaryId = mockk<DiaryId>()
         val diary = mockk<Diary>()
 
-        every { diaryPort.find(diaryId) } returns diary
+        every { diaryPort.findById(diaryId) } returns diary
         Assertions.assertEquals(diary, target.execute(diaryId))
     }
 

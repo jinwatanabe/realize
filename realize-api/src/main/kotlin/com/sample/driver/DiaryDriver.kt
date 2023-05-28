@@ -5,13 +5,13 @@ import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class DiaryDriver() {
-    fun find(diaryId: Int): DiaryJson {
+    fun findById(diaryId: String): DiaryJson {
         TODO()
     }
 }
 
 data class DiaryJson(
-    val id: Int,
+    val id: String,
     val title: String,
     val body: String,
     val author:String,
