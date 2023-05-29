@@ -6,8 +6,8 @@ import com.sample.usecase.port.DiaryPort
 import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
-class GetDiaryUsecase(private val diaryPort: DiaryPort) {
-    fun execute(diaryId: DiaryId): Diary {
+class DiaryUsecase(private val diaryPort: DiaryPort) {
+    fun getById(diaryId: DiaryId): Diary {
         return diaryPort.findById(diaryId)
     }
 }

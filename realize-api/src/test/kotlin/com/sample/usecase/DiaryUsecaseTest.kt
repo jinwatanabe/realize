@@ -12,10 +12,10 @@ import org.junit.jupiter.api.Test
 import javax.inject.Inject
 
 @QuarkusTest
-class GetDiaryUsecaseTest {
+class DiaryUsecaseTest {
 
     @Inject
-    private lateinit var target: GetDiaryUsecase
+    private lateinit var target: DiaryUsecase
 
     @InjectMock
     private lateinit var diaryPort: DiaryPort
@@ -26,7 +26,7 @@ class GetDiaryUsecaseTest {
         val diary = mockk<Diary>()
 
         every { diaryPort.findById(diaryId) } returns diary
-        Assertions.assertEquals(diary, target.execute(diaryId))
+        Assertions.assertEquals(diary, target.getById(diaryId))
     }
 
 }
