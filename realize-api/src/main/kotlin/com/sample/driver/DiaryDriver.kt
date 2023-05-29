@@ -8,6 +8,26 @@ import java.time.LocalDateTime
 
 @ApplicationScoped
 class DiaryDriver() {
+    fun getAll(): List<DiaryJson> {
+        Database.connect("jdbc:mysql://127.0.0.1:3306/realize", "com.mysql.cj.jdbc.Driver", "root", "password")
+        val diaryJsonList = mutableListOf<DiaryJson>()
+        transaction {
+            diariesTable.selectAll().forEach { row ->
+                diaryJsonList.add(
+                    DiaryJson(
+                        id = row[diariesTable.id].toString(),
+                        title = row[diariesTable.title],
+                        body = row[diariesTable.body],
+                        author = row[diariesTable.author],
+                        releaseDate = row[diariesTable.releaseDate]
+                    )
+                )
+            }
+        }
+
+        return diaryJsonList
+    }
+
     fun findById(diaryId: Int): DiaryJson {
         Database.connect("jdbc:mysql://127.0.0.1:3306/realize", "com.mysql.cj.jdbc.Driver", "root", "password")
         var diaryJson: DiaryJson? = null

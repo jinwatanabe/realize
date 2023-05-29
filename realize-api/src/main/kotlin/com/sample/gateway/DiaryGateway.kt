@@ -8,7 +8,8 @@ import javax.enterprise.context.ApplicationScoped
 @ApplicationScoped
 class DiaryGateway(private val diaryDriver: DiaryDriver) : DiaryPort {
     override fun getAll(): List<Diary> {
-        TODO("Not yet implemented")
+        var diariesJson = diaryDriver.getAll()
+        return diariesJson.map { Diary(DiaryTitle(it.title), DiaryBody(it.body), DiaryAuthor(it.author), DiaryReleaseDate(it.releaseDate)) }
     }
 
     override fun findById(diaryId: DiaryId): Diary {

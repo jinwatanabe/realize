@@ -21,6 +21,15 @@ class DiaryGatewayTest {
     private lateinit var driver: DiaryDriver
 
     @Test
+    fun DiaryApiから取得したJsonをDiaryのリストに変換して返す() {
+        val json = listOf(DiaryJson("1", "test", "body", "author", LocalDateTime.parse("2020-02-15T21:30:50")))
+        val diaries = listOf(Diary(DiaryTitle("test"), DiaryBody("body"), DiaryAuthor("author"), DiaryReleaseDate(LocalDateTime.parse("2020-02-15T21:30:50"))))
+
+        every { driver.getAll() } returns json
+        Assertions.assertEquals(target.getAll(), diaries)
+    }
+
+    @Test
     fun DiaryAPiから取得したJsonをDiaryに変換して返す() {
         var diaryId = DiaryId(1)
         val json = DiaryJson("1", "test", "body", "author", LocalDateTime.parse("2020-02-15T21:30:50"))
