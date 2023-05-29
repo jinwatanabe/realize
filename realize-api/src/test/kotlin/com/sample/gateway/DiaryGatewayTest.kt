@@ -3,6 +3,7 @@ package com.sample.gateway
 import com.sample.domain.*
 import com.sample.driver.DiaryDriver
 import com.sample.driver.DiaryJson
+import com.sample.rest.UpdateDiary
 import io.mockk.every
 import io.quarkiverse.test.junit.mockk.InjectMock
 import io.quarkus.test.junit.QuarkusTest
@@ -37,6 +38,18 @@ class DiaryGatewayTest {
 
         every { driver.findById(diaryId.value) } returns json
         Assertions.assertEquals(target.findById(diaryId), diary)
+    }
+
+    @Test
+    fun Diaryを更新する() {
+        var diaryId = DiaryId(1)
+        var updateDiary = UpdateDiary("test2", "body2", "author2")
+        val json = DiaryJson("2", "test2", "body2", "author2", LocalDateTime.parse("2020-02-15T21:30:50"))
+        val diary = Diary(DiaryTitle("test2"), DiaryBody("body2"), DiaryAuthor("author2"), DiaryReleaseDate(LocalDateTime.parse("2020-02-15T21:30:50")))
+
+        every { driver.updateById(diaryId.value) } returns json
+
+        Assertions.assertEquals(target.updateById(diaryId, updateDiary), diary)
     }
 
 }

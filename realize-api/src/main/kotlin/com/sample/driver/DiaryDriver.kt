@@ -1,5 +1,6 @@
 package com.sample.driver
 
+import com.sample.rest.UpdateDiary
 import org.jetbrains.exposed.sql.transactions.transaction
 import javax.enterprise.context.ApplicationScoped
 import org.jetbrains.exposed.sql.*
@@ -42,6 +43,36 @@ class DiaryDriver() {
                 )
             }
 
+        }
+
+        return diaryJson!!
+    }
+
+    fun updateById(diaryId: Int, updateDiary: UpdateDiary): DiaryJson {
+        Database.connect("jdbc:mysql://127.0.0.1:3306/realize", "com.mysql.cj.jdbc.Driver", "root", "password")
+        var diaryJson: DiaryJson? = null
+        transaction {
+            var diary = diariesTable.select { diariesTable.id eq diaryId }.singleOrNull()
+
+            var title = updateDiary.title ?: diary!![diariesTable.title]
+            var body = updateDiary.body ?: diary!![diariesTable.body]
+            var author = updateDiary.author ?: diary!![diariesTable.author]
+
+            diary?.let {
+                diariesTable.update({ diariesTable.id eq diaryId }) {
+                    it[diariesTable.title] = title
+                    it[diariesTable.body] = body
+                    it[diariesTable.author] = author
+                }
+            }
+
+            diaryJson = DiaryJson(
+                id = diaryId.toString(),
+                title = title,
+                body = body,
+                author = author,
+                releaseDate = diary!![diariesTable.releaseDate]
+            )
         }
 
         return diaryJson!!

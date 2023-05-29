@@ -2,6 +2,7 @@ package com.sample.gateway
 
 import com.sample.domain.*
 import com.sample.driver.DiaryDriver
+import com.sample.rest.UpdateDiary
 import com.sample.usecase.port.DiaryPort
 import javax.enterprise.context.ApplicationScoped
 
@@ -14,6 +15,12 @@ class DiaryGateway(private val diaryDriver: DiaryDriver) : DiaryPort {
 
     override fun findById(diaryId: DiaryId): Diary {
         var diaryJson = diaryDriver.findById(diaryId.value)
+        return Diary(DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
+            diaryJson.releaseDate))
+    }
+
+    override fun updateById(diaryId: DiaryId, updateDiary: UpdateDiary): Diary {
+        var diaryJson = diaryDriver.updateById(diaryId.value, updateDiary)
         return Diary(DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
             diaryJson.releaseDate))
     }
