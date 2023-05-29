@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response
 class DiaryResource(private val usecase: GetDiaryUsecase) {
     @GET
     @Path("{diaryId}")
-    fun getDiary(@RestPath diaryId: String): Response {
+    fun getDiary(@RestPath diaryId: Int): Response {
         val diary = usecase.execute(DiaryId(diaryId))
         return Response.ok(diary.toDiaryJson()).build()
     }

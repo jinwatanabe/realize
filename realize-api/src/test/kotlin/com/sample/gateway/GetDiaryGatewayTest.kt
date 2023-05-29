@@ -22,8 +22,8 @@ class GetDiaryGatewayTest {
 
     @Test
     fun DiaryAPiから取得したJsonをDiaryに変換して返す() {
-        var diaryId = DiaryId("1")
-        val json = DiaryJson("1", "test", "body", "author", "2020-02-15T21:30:50")
+        var diaryId = DiaryId(1)
+        val json = DiaryJson("1", "test", "body", "author", LocalDateTime.parse("2020-02-15T21:30:50"))
         val diary = Diary(DiaryTitle("test"), DiaryBody("body"), DiaryAuthor("author"), DiaryReleaseDate(LocalDateTime.parse("2020-02-15T21:30:50")))
 
         every { driver.findById(diaryId.value) } returns json

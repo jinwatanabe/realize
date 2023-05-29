@@ -17,6 +17,13 @@
     <skipITs>true</skipITs>
     <surefire-plugin.version>3.0.0</surefire-plugin.version>
   </properties>
+    <repositories>
+        <repository>
+            <id>exposed</id>
+            <name>exposed</name>
+            <url>https://dl.bintray.com/kotlin/exposed</url>
+        </repository>
+    </repositories>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -76,6 +83,31 @@
       <version>LATEST</version>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>org.jetbrains.exposed</groupId>
+          <artifactId>exposed-core</artifactId>
+          <version>0.36.1</version> <!-- Replace with the desired version -->
+      </dependency>
+      <dependency>
+          <groupId>org.jetbrains.exposed</groupId>
+          <artifactId>exposed-core</artifactId>
+          <version>0.36.1</version>
+      </dependency>
+      <dependency>
+          <groupId>org.jetbrains.exposed</groupId>
+          <artifactId>exposed-jdbc</artifactId>
+          <version>0.36.1</version>
+      </dependency>
+      <dependency>
+          <groupId>mysql</groupId>
+          <artifactId>mysql-connector-java</artifactId>
+          <version>8.0.27</version> <!-- 使用しているMySQLのバージョンに応じて適切なバージョンを指定してください -->
+      </dependency>
+      <dependency>
+          <groupId>org.jetbrains.exposed</groupId>
+          <artifactId>exposed-java-time</artifactId>
+          <version>0.36.1</version>
+      </dependency>
   </dependencies>
   <build>
     <sourceDirectory>src/main/kotlin</sourceDirectory>
@@ -181,6 +213,31 @@
           </pluginOptions>
         </configuration>
       </plugin>
+        <plugin>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-maven-plugin</artifactId>
+            <version>${kotlin.version}</version>
+            <executions>
+                <execution>
+                    <id>exposedGenerate</id>
+                    <goals>
+                        <goal>kapt</goal>
+                    </goals>
+                    <configuration>
+                        <sourceDirs>
+                            <sourceDir>src/main/kotlin</sourceDir>
+                        </sourceDirs>
+                        <annotationProcessorPaths>
+                            <annotationProcessorPath>
+                                <groupId>org.jetbrains.exposed</groupId>
+                                <artifactId>exposed-core</artifactId>
+                                <version>0.35.1</version> <!-- Replace with the desired version -->
+                            </annotationProcessorPath>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
     </plugins>
   </build>
   <profiles>
