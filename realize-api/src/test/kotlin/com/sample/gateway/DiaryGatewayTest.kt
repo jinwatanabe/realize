@@ -12,10 +12,10 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 @QuarkusTest
-class GetDiaryGatewayTest {
+class DiaryGatewayTest {
 
     @Inject
-    private lateinit var target: GetDiaryGateway
+    private lateinit var target: DiaryGateway
 
     @InjectMock
     private lateinit var driver: DiaryDriver

@@ -7,6 +7,11 @@ import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
 class DiaryUsecase(private val diaryPort: DiaryPort) {
+
+    fun getAll(): List<Diary> {
+        return diaryPort.getAll()
+    }
+
     fun getById(diaryId: DiaryId): Diary {
         return diaryPort.findById(diaryId)
     }

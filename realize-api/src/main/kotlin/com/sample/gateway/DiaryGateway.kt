@@ -6,7 +6,11 @@ import com.sample.usecase.port.DiaryPort
 import javax.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
-class GetDiaryGateway(private val diaryDriver: DiaryDriver) : DiaryPort {
+class DiaryGateway(private val diaryDriver: DiaryDriver) : DiaryPort {
+    override fun getAll(): List<Diary> {
+        TODO("Not yet implemented")
+    }
+
     override fun findById(diaryId: DiaryId): Diary {
         var diaryJson = diaryDriver.findById(diaryId.value)
         return Diary(DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(

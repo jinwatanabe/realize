@@ -13,6 +13,13 @@ import javax.ws.rs.core.Response
 class DiaryResource(private val usecase: DiaryUsecase) {
 
     @GET
+    @Path("/")
+    fun getAll(): Response {
+        val diaries = usecase.getAll()
+        return Response.ok(diaries.map { it.toDiaryJson() }).build()
+    }
+
+    @GET
     @Path("{diaryId}")
     fun getById(@RestPath diaryId: Int): Response {
         val diary = usecase.getById(DiaryId(diaryId))

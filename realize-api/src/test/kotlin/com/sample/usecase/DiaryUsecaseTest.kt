@@ -21,6 +21,14 @@ class DiaryUsecaseTest {
     private lateinit var diaryPort: DiaryPort
 
     @Test
+    fun 全てのDiaryを取得できること() {
+        val diaries = listOf(mockk<Diary>())
+
+        every { diaryPort.getAll() } returns diaries
+        Assertions.assertEquals(diaries, target.getAll())
+    }
+
+    @Test
     fun DiaryIdをもとにDiaryを取得できること() {
         val diaryId = mockk<DiaryId>()
         val diary = mockk<Diary>()
