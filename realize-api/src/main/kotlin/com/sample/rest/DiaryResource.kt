@@ -33,8 +33,8 @@ class DiaryResource(private val usecase: DiaryUsecase) {
     @PATCH
     @Path("{diaryId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    fun updateById(@RestPath diaryId: Int, @JsonProperty updatedDiary: UpdateDiary): Response {
-        val diary = usecase.updateById(DiaryId(diaryId), updatedDiary)
+    fun updateById(@RestPath diaryId: Int, @JsonProperty paramsDiary: ParamsDiary): Response {
+        val diary = usecase.updateById(DiaryId(diaryId), paramsDiary)
         return Response.ok(diary.toDiaryJson()).build()
     }
 }
@@ -55,7 +55,7 @@ data class DiaryJson(
     val releaseDate: String
 )
 
-data class UpdateDiary(
+data class ParamsDiary(
     val title: String?,
     val body: String?,
     val author: String?

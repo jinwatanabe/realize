@@ -1,4 +1,4 @@
-package com.sample
+package com.sample.rest
 
 import io.quarkus.runtime.annotations.RegisterForReflection
 import javax.ws.rs.GET

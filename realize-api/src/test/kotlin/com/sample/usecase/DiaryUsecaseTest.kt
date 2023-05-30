@@ -2,7 +2,7 @@ package com.sample.usecase
 
 import com.sample.domain.Diary
 import com.sample.domain.DiaryId
-import com.sample.rest.UpdateDiary
+import com.sample.rest.ParamsDiary
 import com.sample.usecase.port.DiaryPort
 import io.mockk.every
 import io.mockk.mockk
@@ -41,11 +41,11 @@ class DiaryUsecaseTest {
     @Test
     fun DiaryIdをもとにDiaryを更新できること() {
         val diaryId = mockk<DiaryId>()
-        var updateDiary = mockk<UpdateDiary>()
+        var paramsDiary = mockk<ParamsDiary>()
         val diary = mockk<Diary>()
 
-        every { diaryPort.updateById(diaryId, updateDiary) } returns diary
-        Assertions.assertEquals(diary, target.updateById(diaryId, updateDiary))
+        every { diaryPort.updateById(diaryId, paramsDiary) } returns diary
+        Assertions.assertEquals(diary, target.updateById(diaryId, paramsDiary))
     }
 
 }

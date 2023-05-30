@@ -2,7 +2,7 @@ package com.sample.usecase
 
 import com.sample.domain.Diary
 import com.sample.domain.DiaryId
-import com.sample.rest.UpdateDiary
+import com.sample.rest.ParamsDiary
 import com.sample.usecase.port.DiaryPort
 import javax.enterprise.context.ApplicationScoped
 
@@ -17,7 +17,7 @@ class DiaryUsecase(private val diaryPort: DiaryPort) {
         return diaryPort.findById(diaryId)
     }
 
-    fun updateById(diaryId: DiaryId, updateDiary: UpdateDiary): Diary {
-        return diaryPort.updateById(diaryId, updateDiary)
+    fun updateById(diaryId: DiaryId, paramsDiary: ParamsDiary): Diary {
+        return diaryPort.updateById(diaryId, paramsDiary)
     }
 }

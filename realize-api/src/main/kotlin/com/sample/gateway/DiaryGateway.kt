@@ -2,7 +2,7 @@ package com.sample.gateway
 
 import com.sample.domain.*
 import com.sample.driver.DiaryDriver
-import com.sample.rest.UpdateDiary
+import com.sample.rest.ParamsDiary
 import com.sample.usecase.port.DiaryPort
 import javax.enterprise.context.ApplicationScoped
 
@@ -19,8 +19,8 @@ class DiaryGateway(private val diaryDriver: DiaryDriver) : DiaryPort {
             diaryJson.releaseDate))
     }
 
-    override fun updateById(diaryId: DiaryId, updateDiary: UpdateDiary): Diary {
-        var diaryJson = diaryDriver.updateById(diaryId.value, updateDiary)
+    override fun updateById(diaryId: DiaryId, paramsDiary: ParamsDiary): Diary {
+        var diaryJson = diaryDriver.updateById(diaryId.value, paramsDiary)
         return Diary(DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
             diaryJson.releaseDate))
     }
