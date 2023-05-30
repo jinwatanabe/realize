@@ -17,6 +17,10 @@ class DiaryUsecase(private val diaryPort: DiaryPort) {
         return diaryPort.findById(diaryId)
     }
 
+    fun create(paramsDiary: ParamsDiary): Diary {
+        return diaryPort.create(paramsDiary)
+    }
+
     fun updateById(diaryId: DiaryId, paramsDiary: ParamsDiary): Diary {
         return diaryPort.updateById(diaryId, paramsDiary)
     }

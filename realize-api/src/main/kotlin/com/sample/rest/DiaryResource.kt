@@ -10,6 +10,7 @@ import org.jboss.resteasy.reactive.RestPath
 import javax.ws.rs.Consumes
 import javax.ws.rs.GET
 import javax.ws.rs.PATCH
+import javax.ws.rs.POST
 import javax.ws.rs.Path
 import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.Response
@@ -30,6 +31,12 @@ class DiaryResource(private val usecase: DiaryUsecase) {
         return Response.ok(diary.toDiaryJson()).build()
     }
 
+    @POST
+    fun create(@JsonProperty paramsDiary: ParamsDiary): Response {
+        val diary = usecase.create(paramsDiary)
+        return Response.ok(diary.toDiaryJson()).build()
+    }
+
     @PATCH
     @Path("{diaryId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -41,6 +48,7 @@ class DiaryResource(private val usecase: DiaryUsecase) {
 
 fun Diary.toDiaryJson(): DiaryJson {
     return DiaryJson(
+        id = this.id.value.toString(),
         title = this.title.value,
         body = this.body.value,
         author = this.author.value,
@@ -50,6 +58,7 @@ fun Diary.toDiaryJson(): DiaryJson {
 
 @RegisterForReflection
 data class DiaryJson(
+    val id: String,
     val title: String,
     val body: String,
     val author: String,

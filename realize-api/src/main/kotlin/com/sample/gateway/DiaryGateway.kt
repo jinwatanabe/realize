@@ -10,18 +10,24 @@ import javax.enterprise.context.ApplicationScoped
 class DiaryGateway(private val diaryDriver: DiaryDriver) : DiaryPort {
     override fun getAll(): List<Diary> {
         var diariesJson = diaryDriver.getAll()
-        return diariesJson.map { Diary(DiaryTitle(it.title), DiaryBody(it.body), DiaryAuthor(it.author), DiaryReleaseDate(it.releaseDate)) }
+        return diariesJson.map { Diary(DiaryId(it.id.toInt()), DiaryTitle(it.title), DiaryBody(it.body), DiaryAuthor(it.author), DiaryReleaseDate(it.releaseDate)) }
     }
 
     override fun findById(diaryId: DiaryId): Diary {
         var diaryJson = diaryDriver.findById(diaryId.value)
-        return Diary(DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
+        return Diary(
+            DiaryId(diaryJson.id.toInt()),DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
             diaryJson.releaseDate))
     }
-
+    override fun create(paramsDiary: ParamsDiary): Diary {
+        val diaryJson = diaryDriver.create(paramsDiary)
+        return Diary(DiaryId(diaryJson.id.toInt()),DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
+            diaryJson.releaseDate))
+    }
     override fun updateById(diaryId: DiaryId, paramsDiary: ParamsDiary): Diary {
         var diaryJson = diaryDriver.updateById(diaryId.value, paramsDiary)
-        return Diary(DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
+        return Diary(
+            DiaryId(diaryJson.id.toInt()) ,DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
             diaryJson.releaseDate))
     }
 }

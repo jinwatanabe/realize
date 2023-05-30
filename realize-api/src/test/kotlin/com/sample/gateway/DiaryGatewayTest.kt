@@ -39,6 +39,15 @@ class DiaryGatewayTest {
         every { driver.findById(diaryId.value, ) } returns json
         Assertions.assertEquals(target.findById(diaryId), diary)
     }
+    @Test
+    fun Diaryを作成する() {
+        var paramsDiary = ParamsDiary("test", "body", "author")
+        val json = DiaryJson("1", "test", "body", "author", LocalDateTime.parse("2020-02-15T21:30:50"))
+        val diary = Diary(DiaryTitle("test"), DiaryBody("body"), DiaryAuthor("author"), DiaryReleaseDate(LocalDateTime.parse("2020-02-15T21:30:50")))
+
+        every { driver.create(paramsDiary) } returns json
+        Assertions.assertEquals(target.create(paramsDiary), diary)
+    }
 
     @Test
     fun Diaryを更新する() {

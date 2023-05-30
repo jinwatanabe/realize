@@ -48,6 +48,35 @@ class DiaryDriver() {
         return diaryJson!!
     }
 
+    fun create(paramsDiary: ParamsDiary): DiaryJson {
+        Database.connect("jdbc:mysql://127.0.0.1:3306/realize", "com.mysql.cj.jdbc.Driver", "root", "password")
+        var diaryJson: DiaryJson? = null
+
+        if (paramsDiary.title == null || paramsDiary.body == null || paramsDiary.author == null) {
+            throw Exception("title, body, author are required")
+        }
+
+        transaction {
+            diariesTable.insert{
+                it[title] = paramsDiary.title
+                it[body] = paramsDiary.body
+                it[author] = paramsDiary.author
+                it[releaseDate] = LocalDateTime.now()
+            }
+
+            val id = diariesTable.select { diariesTable.title eq paramsDiary.title }.single()[diariesTable.id].toString()
+
+            diaryJson = DiaryJson(
+                id = id,
+                title = paramsDiary.title,
+                body = paramsDiary.body,
+                author = paramsDiary.author,
+                releaseDate = LocalDateTime.now()
+            )
+        }
+        return diaryJson!!
+    }
+
     fun updateById(diaryId: Int, paramsDiary: ParamsDiary): DiaryJson {
         Database.connect("jdbc:mysql://127.0.0.1:3306/realize", "com.mysql.cj.jdbc.Driver", "root", "password")
         var diaryJson: DiaryJson? = null

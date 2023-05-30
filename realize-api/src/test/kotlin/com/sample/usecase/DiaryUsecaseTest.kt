@@ -39,6 +39,15 @@ class DiaryUsecaseTest {
     }
 
     @Test
+    fun Diaryを作成できること() {
+        var paramsDiary = mockk<ParamsDiary>()
+        val diary = mockk<Diary>()
+
+        every { diaryPort.create(paramsDiary) } returns diary
+        Assertions.assertEquals(diary, target.create(paramsDiary))
+    }
+
+    @Test
     fun DiaryIdをもとにDiaryを更新できること() {
         val diaryId = mockk<DiaryId>()
         var paramsDiary = mockk<ParamsDiary>()
