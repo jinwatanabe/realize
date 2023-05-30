@@ -5,6 +5,7 @@ import com.sample.domain.Diary
 import com.sample.domain.DiaryId
 import com.sample.extension.toFormattedString
 import com.sample.usecase.DiaryUsecase
+import io.quarkus.runtime.annotations.RegisterForReflection
 import org.jboss.resteasy.reactive.RestPath
 import javax.ws.rs.Consumes
 import javax.ws.rs.GET
@@ -17,7 +18,6 @@ import javax.ws.rs.core.Response
 class DiaryResource(private val usecase: DiaryUsecase) {
 
     @GET
-    @Path("/")
     fun getAll(): Response {
         val diaries = usecase.getAll()
         return Response.ok(diaries.map { it.toDiaryJson() }).build()
@@ -48,6 +48,7 @@ fun Diary.toDiaryJson(): DiaryJson {
     )
 }
 
+@RegisterForReflection
 data class DiaryJson(
     val title: String,
     val body: String,
@@ -55,6 +56,8 @@ data class DiaryJson(
     val releaseDate: String
 )
 
+
+@RegisterForReflection
 data class ParamsDiary(
     val title: String?,
     val body: String?,
