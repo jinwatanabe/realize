@@ -11,7 +11,7 @@
 # Installation
 
 ```bash
-$ git clone https://github.com/jinwatanabe/realize
+$ git clone https://github.com/jinwatanabe/realize.git
 $ cd realize
 ```
 
