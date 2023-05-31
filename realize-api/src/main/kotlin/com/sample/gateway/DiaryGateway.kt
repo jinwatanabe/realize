@@ -30,4 +30,8 @@ class DiaryGateway(private val diaryDriver: DiaryDriver) : DiaryPort {
             DiaryId(diaryJson.id.toInt()) ,DiaryTitle(diaryJson.title), DiaryBody(diaryJson.body), DiaryAuthor(diaryJson.author), DiaryReleaseDate(
             diaryJson.releaseDate))
     }
+
+    override fun deleteById(diaryId: DiaryId): Unit {
+        diaryDriver.deleteById(diaryId.value)
+    }
 }

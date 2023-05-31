@@ -24,4 +24,8 @@ class DiaryUsecase(private val diaryPort: DiaryPort) {
     fun updateById(diaryId: DiaryId, paramsDiary: ParamsDiary): Diary {
         return diaryPort.updateById(diaryId, paramsDiary)
     }
+
+    fun deleteById(diaryId: DiaryId): Unit {
+        diaryPort.deleteById(diaryId)
+    }
 }

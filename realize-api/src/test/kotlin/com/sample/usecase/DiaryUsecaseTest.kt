@@ -4,8 +4,7 @@ import com.sample.domain.Diary
 import com.sample.domain.DiaryId
 import com.sample.rest.ParamsDiary
 import com.sample.usecase.port.DiaryPort
-import io.mockk.every
-import io.mockk.mockk
+import io.mockk.*
 import io.quarkiverse.test.junit.mockk.InjectMock
 import io.quarkus.test.junit.QuarkusTest
 import org.junit.jupiter.api.Assertions
@@ -55,6 +54,19 @@ class DiaryUsecaseTest {
 
         every { diaryPort.updateById(diaryId, paramsDiary) } returns diary
         Assertions.assertEquals(diary, target.updateById(diaryId, paramsDiary))
+    }
+
+    @Test
+    fun DiaryIdをもとにDiaryを削除できること() {
+        val diaryPort = mockk<DiaryPort>(relaxed = true)
+        val diaryId = DiaryId(1)
+
+        every { diaryPort.deleteById(diaryId) } just runs
+
+        val diaryUsecase = DiaryUsecase(diaryPort)
+        diaryUsecase.deleteById(diaryId)
+
+        verify { diaryPort.deleteById(diaryId) }
     }
 
 }

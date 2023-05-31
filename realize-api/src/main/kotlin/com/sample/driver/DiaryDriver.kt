@@ -106,6 +106,13 @@ class DiaryDriver() {
 
         return diaryJson!!
     }
+
+    fun deleteById(diaryId: Int): Unit {
+        Database.connect("jdbc:mysql://127.0.0.1:3306/realize", "com.mysql.cj.jdbc.Driver", "root", "password")
+        transaction {
+            diariesTable.deleteWhere { diariesTable.id eq diaryId }
+        }
+    }
 }
 
 data class DiaryJson(

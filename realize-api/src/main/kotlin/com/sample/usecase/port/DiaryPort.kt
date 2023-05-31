@@ -8,6 +8,6 @@ interface DiaryPort {
     fun getAll(): List<Diary>
     fun findById(diaryId: DiaryId): Diary
     fun create(paramsDiary: ParamsDiary): Diary
-
     fun updateById(diaryId: DiaryId, paramsDiary: ParamsDiary): Diary
+    fun deleteById(diaryId: DiaryId): Unit
 }

@@ -8,6 +8,7 @@ import com.sample.usecase.DiaryUsecase
 import io.quarkus.runtime.annotations.RegisterForReflection
 import org.jboss.resteasy.reactive.RestPath
 import javax.ws.rs.Consumes
+import javax.ws.rs.DELETE
 import javax.ws.rs.GET
 import javax.ws.rs.PATCH
 import javax.ws.rs.POST
@@ -43,6 +44,13 @@ class DiaryResource(private val usecase: DiaryUsecase) {
     fun updateById(@RestPath diaryId: Int, @JsonProperty paramsDiary: ParamsDiary): Response {
         val diary = usecase.updateById(DiaryId(diaryId), paramsDiary)
         return Response.ok(diary.toDiaryJson()).build()
+    }
+
+    @DELETE
+    @Path("{diaryId}")
+    fun deleteById(@RestPath diaryId: Int): Response {
+        val status = usecase.deleteById(DiaryId(diaryId))
+        return Response.noContent().build()
     }
 }
 
